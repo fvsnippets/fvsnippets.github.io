@@ -46,8 +46,8 @@ The picture should be a square that's at least 240px wide.
     cd ../..
     rake install['readify']
     rake generate
-    
-_NOTE_: some shells would require you to escape brackets (you can tell by error about 'no matches found'), so your command would look like `rake install\['THEME_NAME'\]`    
+
+*NOTE*: Some shells may require you to escape brackets, so if you get an error about `no matches found`, try `rake install\['readify'\]`.  
 
 # License
 
