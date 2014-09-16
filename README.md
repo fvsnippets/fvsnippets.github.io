@@ -47,7 +47,7 @@ The picture should be a square that's at least 240px wide.
     rake install['readify']
     rake generate
 
-*NOTE*: Some shells may require you to escape brackets, so if you get an error about `no matches found`, try `rake install\['readify'\]`.  
+*NOTE*: Some shells may require you to escape brackets, so if you get a "no matches found" error, try `rake install\['readify'\]`.
 
 # License
 
