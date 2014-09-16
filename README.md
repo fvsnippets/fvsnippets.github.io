@@ -20,6 +20,8 @@ Readify is a responsive Octopress theme focused on readibility. It's designed to
     rake install['readify']
     rake generate
 
+*NOTE*: Some shells may require you to escape brackets, so if you get a "no matches found" error, try `rake install\['readify'\]`.
+
 # Variables
 
 You can modify the following variables (defined in `sass/custom/_styles.scss`):
