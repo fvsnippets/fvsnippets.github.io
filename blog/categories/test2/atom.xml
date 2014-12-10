@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Test2 | Snippets]]></title>
+  <link href="http://fvsnippets.github.io/blog/categories/test2/atom.xml" rel="self"/>
+  <link href="http://fvsnippets.github.io/"/>
+  <updated>2014-12-10T16:43:52-03:00</updated>
+  <id>http://fvsnippets.github.io/</id>
+  <author>
+    <name><![CDATA[Federico Valido]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Hello World]]></title>
+    <link href="http://fvsnippets.github.io/blog/2014/11/20/hello-world/"/>
+    <updated>2014-11-20T15:58:47-03:00</updated>
+    <id>http://fvsnippets.github.io/blog/2014/11/20/hello-world</id>
+    <content type="html"><![CDATA[<p>A few days ago, I added search functionality to <a href="http://phindee.com/">Phindee</a> so users can quickly find information about a particular happy hour. Search that is well-done often comes with autocomplete, and Phindee is no exception.</p>
+
+<!-- more -->
+
+
+<p></p>
+
+<p>Autocomplete in Phindee does a couple of things for the user: 1) it reduces typing, 2) it lets the user quickly know if a specific happy hour is in the database, 3) it allows her to quickly find a particular happy hour that <em>is</em> in the database, and 4) it lets him know if the happy hour is currently happening because it will have a green circle next to it if thats the case.</p>
+]]></content>
+  </entry>
+  
+</feed>
