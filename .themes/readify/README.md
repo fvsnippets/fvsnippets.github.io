@@ -55,7 +55,7 @@ The picture should be a square that's at least 240px wide.
 
 # License
 
-Notice: This is Readify from Vladi Gleba with ad-hoc modifications by Federico Valido. Below is the original license. The theme with Federico Valido's ad-hoc modifications uses the same license.
+Notice: This is Readify by Vladi Gleba with ad-hoc modifications by Federico Valido. Below is the original license. The theme with Federico Valido's ad-hoc modifications uses the same license.
 
 The MIT License
 
