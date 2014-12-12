@@ -1,0 +1,128 @@
+### NO USAR CYGWIN ###
+
+# instalar git
+# Bajarse Console2
+# Asociar console2 con (shell): "C:\Program Files (x86)\Git\bin\sh.exe" --login -i"
+
+# instalar Ruby 1.9.3 (RubyInstaller)
+$ PATH=$PATH:/c/Ruby193/bin/ ; export PATH
+
+# instalar DevKit for ruby 1.9.3 https://github.com/downloads/oneclick/rubyinstaller/DevKit-tdm-32-4.5.2-20111229-1559-sfx.exe
+$ mv /c/Users/fvalido/Downloads/1 /c/Ruby193/DevKit
+$ cd /c/Ruby193/DevKit
+$ ruby dk.rb init
+$ ruby dk.rb review
+$ ruby dk.rb install
+
+
+# Octopress
+
+$ gem install rake
+$ gem install bundler
+
+$ git clone git://github.com/imathis/octopress.git blog
+$ cd blog
+$ vi Rakefile
+
+
+
+
+# Cambiar
+
+if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  puts '## Set the codepage to 65001 for Windows machines'
+  `chcp 65001`
+end
+
+# por 
+
+if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  puts '## Set the codepage to 65001 for Windows machines'
+  `cmd /c chcp 65001`
+end
+
+
+
+# Cambiar
+desc "deploy public directory to github pages"
+multitask :push do
+(...)
+# Solo esta línea
+  (Dir["#{deploy_dir}/*"]).each { |f| rm_rf(f) }
+# /Solo esta línea
+
+
+# Por todo esto:
+
+  exclusions = []
+  File.open("#{deploy_dir}/.octopress_deploy_delete_exclude") do |fexclusions|
+    fexclusions.lines.each do |line|
+      cleanline=line.strip
+      exclusions << "#{deploy_dir}/#{cleanline}"
+    end
+  end
+  (Dir["#{deploy_dir}/*"]).each { |f| FileList["#{f}"].exclude(*exclusions).each { |file| rm_rf(f) } }
+
+
+
+
+# Hacerlo (El otro theme [readify]) no contiene todos los archivos que necesito.
+$ rake install
+
+$ git clone https://github.com/vladigleba/readify.git .themes/readify
+
+# Primer modificar archivos:
+# (M) Modificado
+# (N) Nuevo
+
+# (M) _config.yml
+# (M) .themes/readify/sass/custom/_styles.scss
+# (M) .themes/readify/source/_includes/custom/head.html
+# (N) .themes/readify/source/_includes/custom/navigation.html
+# (N) .themes/readify/source/_includes/head.html
+# (N) .themes/readify/source/_includes/footer.html
+
+$ rake install['readify']
+
+$ rake generate
+
+# Copiar posts:
+# source/_posts/
+
+# Siempre usar un rake generate antes de un preview
+$ rake generate && rake preview
+
+# o
+
+$ rake install["readify"] && rake generate && rake preview
+
+
+# Repetir en cada deploy:
+
+$ rm -Rf _deploy
+$ rake setup_github_pages
+git@github.com:fvsnippets/fvsnippets.github.io.git
+
+# Las dos siguientes lineas evitan conflictos ("non-fast-forward").
+$ rm -Rf _deploy
+$ git clone git@github.com:fvsnippets/fvsnippets.github.io.git _deploy
+
+$ rake generate
+$ rake deploy
+
+
+
+
+# Crear un branch llamado source.
+$ cd ..
+$ git clone git@github.com:fvsnippets/fvsnippets.github.io.git blogsource
+$ cd blogsource
+$ git checkout source
+### mover todo el contenido de blog aca excluyendo el directorio .git ###
+$ git add --all
+$ git commit -m "Initial source"
+$ git push
+
+# A partir de ahora para checkoutear el source:
+$ git clone git@github.com:fvsnippets/fvsnippets.github.io.git blog
+$ git checkout source

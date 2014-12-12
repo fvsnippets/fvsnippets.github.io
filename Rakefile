@@ -9,10 +9,10 @@ ssh_port       = "22"
 document_root  = "~/website.com/"
 rsync_delete   = false
 rsync_args     = ""  # Any extra arguments to pass to rsync
-deploy_default = "rsync"
+deploy_default = "push"
 
 # This will be configured for you when you run config_deploy
-deploy_branch  = "gh-pages"
+deploy_branch  = "master"
 
 ## -- Misc Configs -- ##
 
@@ -29,7 +29,7 @@ server_port     = "4000"      # port for preview server eg. localhost:4000
 
 if (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
   puts '## Set the codepage to 65001 for Windows machines'
-  `chcp 65001`
+  `cmd /c chcp 65001`
 end
 
 desc "Initial setup for Octopress: copies the default theme into the path of Jekyll's generator. Rake install defaults to rake install[classic] to install a different theme run rake install[some_theme_name]"
@@ -248,14 +248,21 @@ task :rsync do
   ok_failed system("rsync -avze 'ssh -p #{ssh_port}' #{exclude} #{rsync_args} #{"--delete" unless rsync_delete == false} #{public_dir}/ #{ssh_user}:#{document_root}")
 end
 
-desc "deploy public directory to github pages"
+
 multitask :push do
   puts "## Deploying branch to Github Pages "
   puts "## Pulling any updates from Github Pages "
   cd "#{deploy_dir}" do 
     Bundler.with_clean_env { system "git pull" }
   end
-  (Dir["#{deploy_dir}/*"]).each { |f| rm_rf(f) }
+  exclusions = []
+  File.open("#{deploy_dir}/.octopress_deploy_delete_exclude") do |fexclusions|
+    fexclusions.lines.each do |line|
+      cleanline=line.strip
+      exclusions << "#{deploy_dir}/#{cleanline}"
+    end
+  end
+  (Dir["#{deploy_dir}/*"]).each { |f| FileList["#{f}"].exclude(*exclusions).each { |file| rm_rf(f) } }
   Rake::Task[:copydot].invoke(public_dir, deploy_dir)
   puts "\n## Copying #{public_dir} to #{deploy_dir}"
   cp_r "#{public_dir}/.", deploy_dir
