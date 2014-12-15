@@ -1,0 +1,7 @@
+header > h1 {
+  display: none;
+}
+article > h2 {
+  text-align: left;
+  text-transform: none !important;
+}
