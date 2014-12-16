@@ -262,7 +262,7 @@ multitask :push do
       exclusions << "#{deploy_dir}/#{cleanline}"
     end
   end
-  (Dir["#{deploy_dir}/*"]).each { |f| FileList["#{f}"].exclude(*exclusions).each { |file| rm_rf(f) } }
+  (Dir["#{deploy_dir}/*"]).each { |f| FileList["#{f}"].exclude(*exclusions).each { |file| rm_rf(file) } }
   Rake::Task[:copydot].invoke(public_dir, deploy_dir)
   puts "\n## Copying #{public_dir} to #{deploy_dir}"
   cp_r "#{public_dir}/.", deploy_dir

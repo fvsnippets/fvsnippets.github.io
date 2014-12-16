@@ -1,3 +1,34 @@
+UTILIZACIÓN DESDE REPOSITORIO
+
+(
+$ PATH=$PATH:/c/Ruby193/bin/ ; export PATH
+)
+
+$ git clone git@github.com:fvsnippets/fvsnippets.github.io.git myblog
+$ git checkout source
+$ cd myblog
+# Esto no va a existir si se hace desde 0 como dice arriba.
+$ rm -Rf _deploy
+$ git clone git@github.com:fvsnippets/fvsnippets.github.io.git _deploy
+
+# Escribir posts
+$ rake post["Hello World"]
+$ vi source/_posts/2014-11-20-hello-world.markdown
+
+$ rake install["readify"] && rake generate && rake preview
+(CTRL-C, y[ENTER], y[ENTER], y[ENTER], y[ENTER])
+
+
+$ rake generate
+$ rake deploy
+$ git commit -m "New posts of `date`."
+$ git push
+
+----
+
+INSTALACIÓN DESDE 0.
+
+
 ### NO USAR CYGWIN ###
 
 # instalar git
@@ -61,12 +92,12 @@ multitask :push do
       exclusions << "#{deploy_dir}/#{cleanline}"
     end
   end
-  (Dir["#{deploy_dir}/*"]).each { |f| FileList["#{f}"].exclude(*exclusions).each { |file| rm_rf(f) } }
+  (Dir["#{deploy_dir}/*"]).each { |f| FileList["#{f}"].exclude(*exclusions).each { |file| rm_rf(file) } }
 
 
 
 
-# Hacerlo (El otro theme [readify]) no contiene todos los archivos que necesito.
+# Esto que sigue hacerlo (aunque después se vaya a instalar otro tema [readify], ese no contiene todos los archivos que necesito; Esto instala todos los archivos que luego readify reemplaza).
 $ rake install
 
 $ git clone https://github.com/vladigleba/readify.git .themes/readify
@@ -79,8 +110,8 @@ $ git clone https://github.com/vladigleba/readify.git .themes/readify
 # (M) .themes/readify/sass/custom/_styles.scss
 # (M) .themes/readify/source/_includes/custom/head.html
 # (N) .themes/readify/source/_includes/custom/navigation.html
+# (N) .themes/readify/source/_includes/custom/footer.html
 # (N) .themes/readify/source/_includes/head.html
-# (N) .themes/readify/source/_includes/footer.html
 
 $ rake install['readify']
 
@@ -97,11 +128,14 @@ $ rake generate && rake preview
 $ rake install["readify"] && rake generate && rake preview
 
 
-# Repetir en cada deploy:
 
+# Deploy (setup solo la primera vez)
+
+(Esto hay que repetirlo?)
 $ rm -Rf _deploy
 $ rake setup_github_pages
 git@github.com:fvsnippets/fvsnippets.github.io.git
+(/Esto hay que repetirlo?)
 
 # Las dos siguientes lineas evitan conflictos ("non-fast-forward").
 $ rm -Rf _deploy
@@ -112,17 +146,34 @@ $ rake deploy
 
 
 
+# TODO LO QUE SIGUE NO ESTOY SEGURO
 
-# Crear un branch llamado source.
-$ cd ..
-$ git clone git@github.com:fvsnippets/fvsnippets.github.io.git blogsource
-$ cd blogsource
-$ git checkout source
-### mover todo el contenido de blog aca excluyendo el directorio .git ###
+$ mkdir -p ../readify/.themes
+$ mv .themes/readify/ ../readify/.themes/
+$ cd ../readify
+$ mv .themes/readify/.git* .
 $ git add --all
-$ git commit -m "Initial source"
-$ git push
+# Chequear que quede todo agregado.
+$ git status
+$ git commit -m "Change structure in order to import to Snippets blog source."
+$ cd ../blog
+# Modificar el archivo:
+.themes/readify/README.md
+(Temas de licencia)
+$ git add -all
+# Chequear que quede todo agregado.
+$ git status
+$ git commit -m "Initial source for Snippets blog (not finished)."
 
-# A partir de ahora para checkoutear el source:
-$ git clone git@github.com:fvsnippets/fvsnippets.github.io.git blog
-$ git checkout source
+$ git remote add other /path/to/readify/
+$ git checkout -b source other/master
+# Chequear que se esté en el branch "source"
+$ git branch
+$ git add --all
+# Modificar el archivo:
+README.md
+(Temas de licencia)
+$ git commit -m "Initial source for Snippets blog (part2)."
+$ rake setup_github_pages
+# Esta línea es necesaria?
+$ git push --set-upstream origin source

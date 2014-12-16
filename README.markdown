@@ -1,4 +1,4 @@
-# Octopress with modifications By Federico Valido
+# SNIPPETS blog (http://fvsnippets.github.io/) - Source code. Based on octopress with modifications By Federico Valido
 
 Notice: This is Octopress by Brandon Mathis with ad-hoc modifications by Federico Valido and including pages and posts for Federico Valido's blog "Snippets".
 
@@ -31,6 +31,7 @@ We love to see people contributing to Octopress, whether it's a bug report, feat
 ## License
 Notice: This is Octopres by Brandon Mathis with ad-hoc modifications by Federico Valido and including pages and posts for Federico Valido's blog "Snippets". Below is the original license for octopress. The octopress with ad-hoc modifications by Federico Valido uses the same license. Licenses for blog's content like pages and posts are specified in the blog itself.
 
+Octopress License
 (The MIT License)
 
 Copyright © 2009-2013 Brandon Mathis
